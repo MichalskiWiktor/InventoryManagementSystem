@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-
+from .models import Product, Tag, Category
 from .forms import CreateUserForm
 
 @login_required
 def home_page(request):
-    contex={}
-    return render(request, "inventory/base.html", contex)
+    products = Product.objects.all()
+    contex={"products":products}
+    return render(request, "inventory/list.html", contex)
 
 def login_page(request):
     form = AuthenticationForm()

@@ -1,0 +1,7 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+    {% for product in products%}
+        <div>{{product.name}}</div>
+    {% endfor %}
+{% endblock content %}
