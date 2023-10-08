@@ -1,7 +1,24 @@
 {% extends "inventory/base.html" %}
 
 {% block content %}
-    {% for product in products%}
-        <div>{{product.name}}</div>
-    {% endfor %}
+    <div id="accordion">
+        {% for product in products%}
+            <div class="card">
+                <div class="card-header" id="heading{{ product.id }}">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ product.id }}" aria-expanded="true" aria-controls="collapseOne">
+                        {{product.name}}
+                    </button>
+                </h5>
+                </div>
+            
+                <div id="collapse{{ product.id }}" class="collapse show" aria-labelledby="heading{{ product.id }}">
+                <div class="card-body">
+                    Content for Accordion Item #1 goes here.
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+      
 {% endblock content %}
