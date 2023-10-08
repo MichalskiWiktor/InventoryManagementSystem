@@ -6,19 +6,21 @@
             <div class="card">
                 <div class="card-header" id="heading{{ product.id }}">
                 <h5 class="mb-0">
+                    <!-- <img src="../../{{product.image}}" alt="example" width="500" height="600"> -->
                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ product.id }}" aria-expanded="true" aria-controls="collapseOne">
                         {{product.name}}
                     </button>
+                    <p>{% for cat in product.category.all %}{{ cat }}{% endfor %}</p>
+                    <p>{{ product.selling_price }}</p>
+                    <p>{{ product.stock }}</p>
                 </h5>
                 </div>
-            
                 <div id="collapse{{ product.id }}" class="collapse show" aria-labelledby="heading{{ product.id }}">
                 <div class="card-body">
-                    Content for Accordion Item #1 goes here.
+                    Tutaj form z tymi wsyztkimi danym i kuzik do zatwierdzenia zmian
                 </div>
                 </div>
             </div>
         {% endfor %}
       </div>
-      
 {% endblock content %}

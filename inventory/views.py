@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from .models import Product, Tag, Category
 from .forms import CreateUserForm
 
-@login_required
+
 def home_page(request):
     products = Product.objects.all()
     contex={"products":products}
