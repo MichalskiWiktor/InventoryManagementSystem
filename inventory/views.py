@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Product, Tag, Category
 from .forms import CreateUserForm, LoginUserForm
 
+@login_required(login_url="login")
 def home_page(request):
     products = Product.objects.all()
     contex={"products":products}
@@ -20,7 +21,7 @@ def login_page(request):
             login(request, user)
             return redirect("home")
     contex = {"form":form}
-    return render(request, "inventory/register.html", contex)
+    return render(request, "inventory/login.html", contex)
 
 def register_page(request):
     form = CreateUserForm()
@@ -28,6 +29,7 @@ def register_page(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect("home")
     contex = {"form":form}
     return render(request, "inventory/register.html", contex)
 

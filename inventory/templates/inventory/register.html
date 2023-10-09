@@ -1,18 +1,30 @@
-{% extends "inventory/base.html" %}
+{% extends "inventory/form_base.html" %}
 
 {% block content%}
-<div class="container">
-    <form action="" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            {{ form.username.label_tag }}
-            <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" placeholder="Email">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card" style="width: 350px;">
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    {{ form.password1.label_tag }}
+                    <input type="password" class="form-control" id="{{ form.password1.id_for_label }}" name="{{ form.password1.name }}" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    {{ form.password2.label_tag }}
+                    <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
         </div>
-        <div class="form-group">
-            {{ form.password.label_tag }}
-            <input type="password" class="form-control" id="{{ form.password.id_for_label }}" name="{{ form.password.name }}" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    </div>
 </div>
 {% endblock content%}
