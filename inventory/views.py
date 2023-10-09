@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Product, Tag, Category
-from .forms import CreateUserForm
-
+from .forms import CreateUserForm, LoginUserForm
 
 def home_page(request):
     products = Product.objects.all()
@@ -12,7 +11,7 @@ def home_page(request):
     return render(request, "inventory/list.html", contex)
 
 def login_page(request):
-    form = AuthenticationForm()
+    form = LoginUserForm(request)
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -31,3 +30,7 @@ def register_page(request):
             form.save()
     contex = {"form":form}
     return render(request, "inventory/register.html", contex)
+
+def logout_page(request):
+    logout(request)
+    return redirect("login")

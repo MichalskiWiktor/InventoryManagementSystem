@@ -6,16 +6,35 @@
             <div class="card">
                 <div class="card-header" id="heading{{ product.id }}">
                 <h5 class="mb-0">
-                    <!-- <img src="../../{{product.image}}" alt="example" width="500" height="600"> -->
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ product.id }}" aria-expanded="true" aria-controls="collapseOne">
-                        {{product.name}}
-                    </button>
-                    <p>{% for cat in product.category.all %}{{ cat }}{% endfor %}</p>
-                    <p>{{ product.selling_price }}</p>
-                    <p>{{ product.stock }}</p>
+                    <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            <img src="../../{{product.image}}" alt="example" width="500" height="600">                          
+                          </div>
+                          <div class="col-3">
+                             {{product.name}}                         
+                          </div>
+                          <div class="col">
+                            {% for cat in product.category.all %}{{ cat }}{% endfor %}
+                          </div>
+                          <div class="col">
+                            {{ product.selling_price }}
+                          </div>
+                          <div class="col">
+                            {{ product.stock }}
+                          </div>
+                          <div class="col">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ product.id }}" aria-expanded="true" aria-controls="collapse{{ product.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                  </svg>
+                            </button> 
+                          </div>
+                        </div>
+                      </div>
                 </h5>
                 </div>
-                <div id="collapse{{ product.id }}" class="collapse show" aria-labelledby="heading{{ product.id }}">
+                <div id="collapse{{ product.id }}" class="collapse" aria-labelledby="heading{{ product.id }}">
                 <div class="card-body">
                     Tutaj form z tymi wsyztkimi danym i kuzik do zatwierdzenia zmian
                 </div>
