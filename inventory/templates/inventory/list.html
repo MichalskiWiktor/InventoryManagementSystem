@@ -1,5 +1,4 @@
 {% extends "inventory/base.html" %}
-
 {% block content %}
     <div id="accordion">
         {% for product in products%}
@@ -9,7 +8,6 @@
                     <div class="container">
                         <div class="row">
                           <div class="col">
-                            <img src="{{product.image.url}}" alt="example">                          
                           </div>
                           <div class="col-3">
                              {{product.name}}                         
@@ -36,62 +34,74 @@
                 </div>
                 <div id="collapse{{ product.id }}" class="collapse" aria-labelledby="heading{{ product.id }}">
                 <div class="card-body">
-                  <form class="row g-3">
-                    <div class="col-md-4">
-                      <label for="inputProductName" class="form-label">Product Name</label>
-                      <input type="text" class="form-control" id="inputProductName">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputPrice" class="form-label">Price</label>
-                      <input type="text" class="form-control" id="inputPrice">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputCategory" class="form-label">Category</label>
-                      <input type="text" class="form-control" id="inputCategory">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputBrandName" class="form-label">Brand Name</label>
-                      <input type="text" class="form-control" id="inputBrandName">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputCost" class="form-label">Cost</label>
-                      <input type="text" class="form-control" id="inputCost">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputTags" class="form-label">Tags</label>
-                      <input type="text" class="form-control" id="inputTag">
-                    </div>
-                    <div class="col-12">
-                      <label for="inputAddress2" class="form-label">Address 2</label>
-                      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                    </div>
-                    <div class="col-md-6">
-                      <label for="inputCity" class="form-label">City</label>
-                      <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="inputState" class="form-label">State</label>
-                      <select id="inputState" class="form-select">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                      </select>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputZip" class="form-label">Zip</label>
-                      <input type="text" class="form-control" id="inputZip">
-                    </div>
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                          Check me out
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Sign in</button>
-                    </div>
-                  </form>                </div>
+                  <div class="container mt-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="name">Product Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="category">Category</label>
+                                <select class="form-control" id="category" name="category">
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="stock">Stock</label>
+                                <input type="number" class="form-control" id="stock" name="stock" value="{{ product.stock }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="created_at">Created at</label>
+                                <input type="text" class="form-control" id="created_at" name="created_at" value="{{ product.created_at }}" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="image">Image</label>
+                                <input type="file" class="form-control" id="image" name="image">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="sku">SKU</label>
+                                <input type="text" class="form-control" id="sku" name="sku" value="{{ product.sku }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="barcode">Barcode</label>
+                                <input type="number" class="form-control" id="barcode" name="barcode" value="{{ product.barcode }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="brand">Brand Name</label>
+                                <input type="text" class="form-control" id="brand" name="brand" value="{{ product.brand }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="exp_date">Exp date</label>
+                                <input type="date" class="form-control" id="exp_date" name="exp_date" value="{{ product.exp_date }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="selling_price">Price</label>
+                                <input type="number" class="form-control" id="selling_price" name="selling_price" value="{{ product.selling_price }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="manufacturing_price">Cost</label>
+                                <input type="number" class="form-control" id="manufacturing_price" name="manufacturing_price" value="{{ product.manufacturing_price }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                              <label for="tags">Tags</label>
+                              <select class="form-control" id="tags" name="tags" multiple>
+                                  {% for tag in tags %}
+                                  {% endfor %}
+                              </select>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Changes</button>
+                    </form>
+                </div>              
+                </div>
                 </div>
             </div>
         {% endfor %}

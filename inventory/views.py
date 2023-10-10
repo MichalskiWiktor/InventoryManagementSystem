@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Product, Tag, Category
+from .models import Product
 from .forms import CreateUserForm, LoginUserForm
 
 @login_required(login_url="login")
@@ -33,6 +32,7 @@ def register_page(request):
     contex = {"form":form}
     return render(request, "inventory/register.html", contex)
 
+@login_required(login_url="login")
 def logout_page(request):
     logout(request)
     return redirect("login")
