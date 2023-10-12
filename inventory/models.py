@@ -18,7 +18,7 @@ class Category(models.Model):
 class Product(models.Model):
     # Mandatory Fields
     name = models.CharField(max_length=50) 
-    category = models.ManyToManyField(Category) 
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)    
     stock = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified_at = models.DateTimeField(auto_now=True)

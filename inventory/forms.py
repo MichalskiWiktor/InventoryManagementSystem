@@ -17,13 +17,13 @@ class LoginUserForm(AuthenticationForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password'}),
         }
 
-class CreateProductForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(CreateProductForm, self).__init__(*args, **kwargs)
+        super(ProductForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
             field.widget.attrs.update({'placeholder':f'{field_name}'})

@@ -13,7 +13,7 @@
                              {{product.name}}                         
                           </div>
                           <div class="col">
-                            {% for cat in product.category.all %}{{ cat }}{% endfor %}
+                            {{ product.category}}
                           </div>
                           <div class="col">
                             {{ product.selling_price }}

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Product
-from .forms import CreateUserForm, LoginUserForm, CreateProductForm
+from .models import Product, Category
+from .forms import CreateUserForm, LoginUserForm, ProductForm
 
 @login_required(login_url="login")
 def home_page(request):
     products = Product.objects.all()
-    contex={"products":products}
+    categories = Category.objects.all()
+    contex={"products":products, "categories":categories}
     return render(request, "inventory/list.html", contex)
 
 def login_page(request):
@@ -40,11 +41,11 @@ def logout_page(request):
 def add_product(request):
     # When user will be creating new Product types to add products faster this will be done dynamically
     available_fields = ['name', 'category', 'stock', 'sku', 'barcode'] 
-    form = CreateProductForm(request.POST or None)
+    form = ProductForm(request.POST or None)
 
-    # if request.method == "POST" and form.is_valid():
-    #     pass
-    #     # Obsłuż zapisywanie danych z formularza
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("home")
 
     return render(request, 'inventory/new_product.html', {'form': form, 'available_fields': available_fields})
     
