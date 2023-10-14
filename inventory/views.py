@@ -8,8 +8,16 @@ from .forms import CreateUserForm, LoginUserForm, ProductForm
 def home_page(request):
     products = Product.objects.all()
     categories = Category.objects.all()
-    contex={"products":products, "categories":categories}
+    
+    contex={"products":products, "categories":categories, "forms":getForms(products)}
     return render(request, "inventory/list.html", contex)
+
+def getForms(products):
+    forms = {} 
+    for product in products:
+        form = ProductForm(instance=product)
+        forms[product.pk] = form
+    return forms
 
 def login_page(request):
     form = LoginUserForm(request)
