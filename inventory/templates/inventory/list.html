@@ -1,110 +1,111 @@
 {% extends "inventory/base.html" %}
 {% block content %}
-    <div id="accordion">
-        {% for product in products%}
-            <div class="card">
-                <div class="card-header" id="heading{{ product.id }}">
-                <h5 class="mb-0">
-                    <div class="container">
-                        <div class="row">
-                          <div class="col">
-                          </div>
-                          <div class="col-3">
-                             {{product.name}}                         
-                          </div>
-                          <div class="col">
-                            {{ product.category}}
-                          </div>
-                          <div class="col">
-                            {{ product.selling_price }}
-                          </div>
-                          <div class="col">
-                            {{ product.stock }}
-                          </div>
-                          <div class="col">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ product.id }}" aria-expanded="true" aria-controls="collapse{{ product.id }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                  </svg>
-                            </button> 
-                          </div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <th scope="row">{{ product.id }}</th>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.selling_price }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ product.id }}" aria-expanded="false" aria-controls="collapse{{ product.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div id="collapse{{ product.id }}" class="collapse" aria-labelledby="heading{{ product.id }}">
+                            <div class="card-body">
+                                <div class="container mt-5">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <label for="name">Product Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="category">Category</label>
+                                                <select class="form-control" id="category" name="category">
+                                                    {% for category in categories %}
+                                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="stock">Stock</label>
+                                                <input type="number" class="form-control" id="stock" name="stock" value="{{ product.stock }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="created_at">Created at</label>
+                                                <input type="text" class="form-control" id="created_at" name="created_at" value="{{ product.created_at }}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <label for="image">Image</label>
+                                                <input type="file" class="form-control" id="image" name="image">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="sku">SKU</label>
+                                                <input type="text" class="form-control" id="sku" name="sku" value="{{ product.sku }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="barcode">Barcode</label>
+                                                <input type="number" class="form-control" id="barcode" name="barcode" value="{{ product.barcode }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="brand">Brand Name</label>
+                                                <input type="text" class="form-control" id="brand" name="brand" value="{{ product.brand }}">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <label for="exp_date">Exp date</label>
+                                                <input type="date" class="form-control" id="exp_date" name="exp_date" value="{{ product.exp_date }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="selling_price">Price</label>
+                                                <input type="number" class="form-control" id="selling_price" name="selling_price" value="{{ product.selling_price }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="manufacturing_price">Cost</label>
+                                                <input type="number" class="form-control" id="manufacturing_price" name="manufacturing_price" value="{{ product.manufacturing_price }}">
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                              <label for="tags">Tags</label>
+                                              <select class="form-control" id="tags" name="tags" multiple>
+                                                  {% for tag in tags %}
+                                                  {% endfor %}
+                                              </select>
+                                          </div>
+                                        </div>
+                                        <a href="{% url 'delete_product' product.id %}"><button type="button" class="btn btn-danger">Delete Product</button></a>
+                                        <button type="submit" class="btn btn-primary">Submit Product Changes</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                </h5>
-                </div>
-                <div id="collapse{{ product.id }}" class="collapse" aria-labelledby="heading{{ product.id }}">
-                <div class="card-body">
-                  <div class="container mt-5">
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="name">Product Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="category">Category</label>
-                                <select class="form-control" id="category" name="category">
-                                    {% for category in categories %}
-                                        <option value="{{ category.id }}">{{ category.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="stock">Stock</label>
-                                <input type="number" class="form-control" id="stock" name="stock" value="{{ product.stock }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="created_at">Created at</label>
-                                <input type="text" class="form-control" id="created_at" name="created_at" value="{{ product.created_at }}" disabled>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="image">Image</label>
-                                <input type="file" class="form-control" id="image" name="image">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="sku">SKU</label>
-                                <input type="text" class="form-control" id="sku" name="sku" value="{{ product.sku }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="barcode">Barcode</label>
-                                <input type="number" class="form-control" id="barcode" name="barcode" value="{{ product.barcode }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="brand">Brand Name</label>
-                                <input type="text" class="form-control" id="brand" name="brand" value="{{ product.brand }}">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="exp_date">Exp date</label>
-                                <input type="date" class="form-control" id="exp_date" name="exp_date" value="{{ product.exp_date }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="selling_price">Price</label>
-                                <input type="number" class="form-control" id="selling_price" name="selling_price" value="{{ product.selling_price }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="manufacturing_price">Cost</label>
-                                <input type="number" class="form-control" id="manufacturing_price" name="manufacturing_price" value="{{ product.manufacturing_price }}">
-                            </div>
-                            <div class="col-md-3 mb-3">
-                              <label for="tags">Tags</label>
-                              <select class="form-control" id="tags" name="tags" multiple>
-                                  {% for tag in tags %}
-                                  {% endfor %}
-                              </select>
-                          </div>
-                        </div>
-                        <a href="{% url 'delete_product' product.id %}"><button type="button" class="btn btn-danger">Delete Product</button></a>
-                        <button type="submit" class="btn btn-primary">Submit Product Changes</button>
-                    </form>
-                </div>              
-                </div>
-                </div>
-            </div>
-        {% endfor %}
-      </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}
