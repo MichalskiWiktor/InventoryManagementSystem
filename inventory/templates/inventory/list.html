@@ -6,11 +6,11 @@
         <h3>Inventory</h3>
       </div>
       <div class="col">
-        <select class="form-control" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select id="filterCategory" class="form-control" aria-label="Default select example">
+            <option selected value="all">Category: All</option>
+            {% for category in categories %}
+            <option value="{{category}}">Category: {{category}}</option>
+            {% endfor %}
           </select>
       </div>
       <div class="col">
@@ -89,3 +89,32 @@
     </table>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("input", function () {
+            var value = $(this).val().toLowerCase();
+            $("table tbody tr").each(function () {
+                var rowText = $(this).text().toLowerCase();
+                if (rowText.includes(value)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+        $("#filterCategory").on("change", function () {
+            var selectedCategory = $(this).val().toLowerCase();
+            $("table tbody tr").each(function () {
+                var category = $(this).find("td:nth-child(3)").text().toLowerCase();
+                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedCategory) {
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+{% endblock scripts %}
