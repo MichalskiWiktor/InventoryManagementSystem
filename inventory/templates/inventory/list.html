@@ -33,7 +33,7 @@
     </div>
 </div>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -45,13 +45,11 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody >
             {% for product in products %}
                 <tr>
                     <th scope="row">{{ product.id }}</th>
-                    <th>
-                        <img src="{{ product.image.url }}" alt="My Image" class="img-thumbnail" style="max-width: 50px;">
-                    </th>
+                    <td><img src="{{ product.image.url }}" alt="My Image" class="img-thumbnail" style="max-width: 50px;"></td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.selling_price }}</td>
@@ -65,7 +63,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="6" >
+                    <td colspan="7" >
                         <div id="collapse{{ product.id }}" class="collapse" aria-labelledby="heading{{ product.id }}">
                             <div class="card-body">
                                 <div class="container">
