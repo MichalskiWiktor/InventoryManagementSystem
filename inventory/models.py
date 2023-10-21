@@ -24,7 +24,7 @@ class Product(models.Model):
     last_modified_at = models.DateTimeField(auto_now=True)
 
     # Non Mandatory Fields
-    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
     sku = models.CharField(max_length=50, blank=True, null=True) 
     barcode = models.IntegerField(blank=True, null=True) 
     brand = models.CharField(max_length=50, blank=True, null=True) 

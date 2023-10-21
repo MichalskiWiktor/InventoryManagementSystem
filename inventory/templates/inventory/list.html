@@ -37,6 +37,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Image</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Category</th>
                 <th scope="col">Price</th>
@@ -48,6 +49,9 @@
             {% for product in products %}
                 <tr>
                     <th scope="row">{{ product.id }}</th>
+                    <th>
+                        <img src="{{ product.image.url }}" alt="My Image" class="img-thumbnail" style="max-width: 50px;">
+                    </th>
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.selling_price }}</td>
@@ -92,44 +96,3 @@
     </table>
 </div>
 {% endblock content %}
-
-{% block scripts %}
-<script>
-    $(document).ready(function () {
-        $("#myInput").on("input", function () {
-            var value = $(this).val().toLowerCase();
-            $("table tbody tr").each(function () {
-                var rowText = $(this).text().toLowerCase();
-                if (rowText.includes(value)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
-        $("#filterCategory").on("change", function () {
-            var selectedCategory = $(this).val().toLowerCase();
-            $("table tbody tr").each(function () {
-                var category = $(this).find("td:nth-child(3)").text().toLowerCase();
-                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedCategory) {
-                    $(this).show();
-                }else{
-                    $(this).hide();
-                }
-            });
-        $("#sortBy").on("change", function () {
-            var selectedSortBy = $(this).val().toLowerCase();
-            $("table tbody tr").each(function () {
-                var price = $(this).find("td:nth-child(4)").text().toLowerCase();
-                var stock = $(this).find("td:nth-child(5)").text().toLowerCase();
-                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedSortBy) {
-                    $(this).show();
-                }else{
-                    $(this).hide();
-                }
-            });
-        });
-        });
-    });
-</script>
-{% endblock scripts %}
