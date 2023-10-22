@@ -6,7 +6,7 @@
         <h3>Inventory</h3>
       </div>
       <div class="col">
-        <select id="filterCategory" class="form-control" aria-label="Default select example">
+        <select id="filterCategory" class="form-control">
             <option selected value="all">Category: All</option>
             {% for category in categories %}
             <option value="{{category}}">Category: {{category}}</option>
@@ -14,7 +14,7 @@
           </select>
       </div>
       <div class="col">
-        <select id="sortBy" class="form-control" aria-label="Default select example">
+        <select id="sortBy" class="form-control">
             <option value="default" selected>Sort by: Default</option>
             <option value="recent">Most recent</option>
             <option value="oldest">Oldest</option>
@@ -49,7 +49,7 @@
             {% for product in products %}
                 <tr>
                     <th scope="row">{{ product.id }}</th>
-                    <td><img src="{{ product.image.url }}" alt="My Image" class="img-thumbnail" style="max-width: 50px;"></td>
+                    <td><img src="{{ product.image.url }}" alt="Product Image" class="img-thumbnail" style="max-width: 50px;"></td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.selling_price }}</td>
@@ -94,3 +94,43 @@
     </table>
 </div>
 {% endblock content %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("input", function () {
+            var value = $(this).val().toLowerCase();
+            $("table tbody tr").each(function () {
+                var rowText = $(this).text().toLowerCase();
+                if (rowText.includes(value)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+        $("#filterCategory").on("change", function () {
+            var selectedCategory = $(this).val().toLowerCase();
+            $("table tbody tr").each(function () {
+                var category = $(this).find("td:nth-child(4)").text().toLowerCase();
+                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedCategory) {
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                }
+            });
+        $("#sortBy").on("change", function () {
+            var selectedSortBy = $(this).val().toLowerCase();
+            $("table tbody tr").each(function () {
+                var price = $(this).find("td:nth-child(5)").text().toLowerCase();
+                var stock = $(this).find("td:nth-child(6)").text().toLowerCase();
+                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedSortBy) {
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                }
+            });
+        });
+        });
+    });
+</script>
+{% endblock scripts %}

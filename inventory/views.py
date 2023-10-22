@@ -48,14 +48,15 @@ def logout_page(request):
 
 def add_product(request):
     # When user will be creating new Product types to add products faster this will be done dynamically
-    available_fields = ['name', 'category', 'stock', 'sku', 'barcode'] 
+    required_fields = ['image', 'name', 'category', 'stock', 'selling price',] 
+    chosen_fields = []
     form = ProductForm(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect("home")
 
-    return render(request, 'inventory/new_product.html', {'form': form, 'available_fields': available_fields})
+    return render(request, 'inventory/new_product.html', {'form': form, 'available_fields': required_fields})
     
 
 # def update_product(request, pk):
