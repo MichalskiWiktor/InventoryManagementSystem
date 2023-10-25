@@ -8,4 +8,5 @@ urlpatterns = [
     path("logout/", views.logout_page, name="logout"),
     path("add/", views.add_product, name="add_product"),
     path("delete/<str:pk>/", views.delete_product, name="delete_product"),
+    path('get_field_data/', views.get_field_data, name='get_field_data'),
 ]
