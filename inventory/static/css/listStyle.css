@@ -1,0 +1,17 @@
+body{
+    background-color: #F0F2F4;
+}
+.container{
+    margin-top: 1%; 
+    margin-bottom: 1%;
+}
+#productsTable{
+    width:95%;
+    border:1px solid white;
+    background-color: white;
+    margin: 0 auto;padding:1%;
+    border-radius: 0.5%;
+}
+#productImage{
+    max-width: 50px;
+}

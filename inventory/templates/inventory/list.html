@@ -1,6 +1,12 @@
 {% extends "inventory/base.html" %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/listStyle.css' %}">
+{% endblock%}
+
 {% block content %}
-<div class="container" style="margin-top: 1%; margin-bottom: 1%;">
+<div class="container">
     <div class="row justify-content-start">
       <div class="col">
         <h3>Inventory</h3>
@@ -9,7 +15,7 @@
         <select id="filterCategory" class="form-control">
             <option selected value="all">Category: All</option>
             {% for category in categories %}
-            <option value="{{category}}">Category: {{category}}</option>
+                <option value="{{category}}">Category: {{category}}</option>
             {% endfor %}
           </select>
       </div>
@@ -24,7 +30,7 @@
             <option value="stock_asc">Stock low to high</option>
           </select>
       </div>
-      <div class="col">
+      <div class="col-4">
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
       </div>
       <div class="col">
@@ -32,7 +38,7 @@
     </div>
     </div>
 </div>
-<div class="table-responsive">
+<div class="table-responsive" id="productsTable">
     <table class="table table-sm">
         <thead>
             <tr>
@@ -49,7 +55,7 @@
             {% for product in products %}
                 <tr>
                     <th scope="row">{{ product.id }}</th>
-                    <td><img src="{{ product.image.url }}" alt="Product Image" class="img-thumbnail" style="max-width: 50px;"></td>
+                    <td><img src="{{ product.image.url }}" alt="Product Image" class="img-thumbnail" id="productImage"></td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.selling_price }}</td>
@@ -95,41 +101,6 @@
 </div>
 {% endblock content %}
 {% block scripts %}
-<script>
-    $(document).ready(function () {
-        $("#myInput").on("input", function () {
-            var value = $(this).val().toLowerCase();
-            $("table tbody tr").each(function () {
-                var rowText = $(this).text().toLowerCase();
-                if (rowText.includes(value)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
-        $("#filterCategory").on("change", function () {
-            var selectedCategory = $(this).val().toLowerCase();
-            $("table tbody tr").each(function () {
-                var category = $(this).find("td:nth-child(4)").text().toLowerCase();
-                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedCategory) {
-                    $(this).show();
-                }else{
-                    $(this).hide();
-                }
-            });
-        $("#sortBy").on("change", function () {
-            var selectedSortBy = $(this).val().toLowerCase();
-            $("table tbody tr").each(function () {
-                var price = $(this).find("td:nth-child(5)").text().toLowerCase();
-                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedSortBy) {
-                    $(this).show();
-                }else{
-                    $(this).hide();
-                }
-            });
-        });
-        });
-    });
-</script>
+    {% load static %}
+    <script src="{% static 'js/listScript.js' %}"></script>
 {% endblock scripts %}

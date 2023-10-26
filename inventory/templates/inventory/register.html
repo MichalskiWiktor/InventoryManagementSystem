@@ -1,8 +1,11 @@
 {% extends "inventory/form_base.html" %}
-
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/signFormStyle.css' %}">
+{% endblock%}
 {% block content%}
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card" style="width: 350px;">
+    <div class="card" id="formCard">
         <div class="card-body">
             <form action="" method="post">
                 {% csrf_token %}
@@ -23,7 +26,7 @@
                     {{ form.password2.label_tag }}
                     <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;margin-top: 5%;">Submit</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
               </form>
         </div>
     </div>
