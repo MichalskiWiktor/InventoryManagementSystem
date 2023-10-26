@@ -6,6 +6,7 @@
         <div class="card-body">
             <form action="" method="post">
                 {% csrf_token %}
+                <h3 class="text-center">Register</h3>
                 <div class="form-group">
                     {{ form.username.label_tag }}
                     <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" placeholder="Username">
@@ -22,7 +23,7 @@
                     {{ form.password2.label_tag }}
                     <input type="password" class="form-control" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" style="width:100%;margin-top: 5%;">Submit</button>
               </form>
         </div>
     </div>

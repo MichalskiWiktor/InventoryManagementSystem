@@ -122,7 +122,6 @@
             var selectedSortBy = $(this).val().toLowerCase();
             $("table tbody tr").each(function () {
                 var price = $(this).find("td:nth-child(5)").text().toLowerCase();
-                var stock = $(this).find("td:nth-child(6)").text().toLowerCase();
                 if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedSortBy) {
                     $(this).show();
                 }else{
