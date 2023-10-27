@@ -1,11 +1,15 @@
 {% extends "inventory/base.html" %}
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/newProductStyle.css' %}">
+{% endblock%}
 {% block content %}
 <div class="container d-flex justify-content-center">
   <div class="card">
       <div class="card-body">
         {% for field in form %}
           {% if field.name not in available_fields %}
-              <button class="btn btn-secondary" onclick="addItemToForm('{{field.name}}')" style="margin:1%" id="btn-{{field.name|lower}}">{{field.label}}</button>
+              <button class="btn btn-secondary formBtn" onclick="addItemToForm('{{field.name}}')" id="btn-{{field.name|lower}}">{{field.label}}</button>
           {% endif %}
         {% endfor %}
       </div>
