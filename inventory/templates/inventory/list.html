@@ -22,7 +22,6 @@
       <div class="col">
         <select id="sortBy" class="form-control">
             <option value="default" selected>Sort by: Default</option>
-            <option value="recent">Most recent</option>
             <option value="oldest">Oldest</option>
             <option value="price_desc">Price high to low</option>
             <option value="price_asc">Price low to High</option>
@@ -51,9 +50,9 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody >
+        <tbody>
             {% for product in products %}
-                <tr>
+                <tr class="productRow" data-price="{{ product.selling_price }}" data-stock="{{ product.stock }}" data-id="{{ product.id }}">
                     <th scope="row">{{ product.id }}</th>
                     <td><img src="{{ product.image.url }}" alt="Product Image" class="img-thumbnail" id="productImage"></td>
                     <td>{{ product.name }}</td>
@@ -68,7 +67,7 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
+                <tr class="productRowExpanded" data-price="{{ product.selling_price }}" data-stock="{{ product.stock }}" data-id="{{ product.id }}"> <!-- to moge hajdanc jezeli to znajde w kodzie js-->
                     <td colspan="7" >
                         <div id="collapse{{ product.id }}" class="collapse" aria-labelledby="heading{{ product.id }}">
                             <div class="card-body">

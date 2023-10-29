@@ -88,12 +88,20 @@ def get_field_data(request):
     
     return JsonResponse(data)
 
-# def update_product(request, pk):
-#     obj = Product.objects.get(pk=pk)
-#     form = NewItemForm(request.POST or None, instance=obj)
-#     if form.is_valid():
-#         form.save() # save method can create new object or update and existing one 
-#     return redirect("home")
+def update_product(request, pk):
+    obj = Product.objects.get(pk=pk)
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+        else:
+            # Return the form with errors
+            return render(request, 'inventory/update_product.html', {'form': form, 'product': obj})
+    else:
+        form = ProductForm(instance=obj)
+        return render(request, 'inventory/update_product.html', {'form': form, 'product': obj})
+
     
 
 def delete_product(request, pk):
