@@ -2,23 +2,30 @@ $(document).ready(function () {
     $("#myInput").on("input", function () {
         var value = $(this).val().toLowerCase();
         $("table tbody tr").each(function () {
-            var rowText = $(this).text().toLowerCase();
-            if (rowText.includes(value)) {
-                $(this).show();
-            } else {
-                $(this).hide();
+            var className = $(this).attr('class');
+            if(className === "productRow"){
+                var rowText = $(this).text().toLowerCase();
+                if (rowText.includes(value)) {
+                    $(this).show();
+                    $(this).next().show();
+                } else {
+                    $(this).hide();
+                    $(this).next().hide();
+                }
             }
         });
     });
     $("#filterCategory").on("change", function () {
-        alert("ok")
         var selectedCategory = $(this).val().toLowerCase();
         $("table tbody tr").each(function () {
-            var category = $(this).find("td:nth-child(4)").text().toLowerCase();
-            if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedCategory) {
-                $(this).show();
-            }else{
-                $(this).hide();
+            var className = $(this).attr('class');
+            if(className === "productRow"){
+                var category = $(this).find("td:nth-child(4)").text().toLowerCase();
+                if (selectedCategory[1] === '' || selectedCategory === 'all' || category === selectedCategory) {
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                }
             }
         });
     });
